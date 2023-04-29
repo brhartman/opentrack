@@ -46,6 +46,10 @@ bool cam::start(info& args)
     if (args.use_mjpeg)
         cap->set(cv::CAP_PROP_FOURCC, cv::VideoWriter::fourcc('M', 'J', 'P', 'G'));
 
+    // Force the exposure to something reasonable
+    cap->set(cv::CAP_PROP_AUTO_EXPOSURE, 0);
+    cap->set(cv::CAP_PROP_EXPOSURE, -8.0);
+
     if (!cap->isOpened())
         goto fail;
 
