@@ -21,6 +21,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QCoreApplication>
+#include <opencv2/videoio.hpp>
 
 using namespace options;
 
@@ -67,7 +68,7 @@ void Tracker_PT::run()
 {
     portable::set_curthread_name("tracker/pt");
 
-    while(!isInterruptionRequested())
+    while (!isInterruptionRequested())
     {
         if (!check_camera())
             break;
@@ -127,11 +128,12 @@ void Tracker_PT::run()
 
 module_status Tracker_PT::start_tracker(QFrame* video_frame)
 {
-    {
-        auto camera = traits->make_camera();
-        if (!camera || !camera->start(s))
-            return error(tr("Failed to open camera '%1'").arg(s.camera_name));
-    }
+    // Removed to prevent opening, closing, and reopening the camera in quick succession
+    //{
+    //    auto camera = traits->make_camera();
+    //    if (!camera || !camera->start(s))
+    //        return error(tr("Failed to open camera '%1'").arg(s.camera_name));
+    //}
 
     widget = std::make_unique<video_widget>(video_frame);
     layout = std::make_unique<QHBoxLayout>(video_frame);
