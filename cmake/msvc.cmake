@@ -37,7 +37,7 @@ add_definitions(-D_HAS_EXCEPTIONS=0)
 
 if(DEFINED CMAKE_TOOLCHAIN_FILE)
     # ignore cmake warning: Manually-specified variable not used by the project
-    set(CMAKE_TOOLCHAIN_FILE "${CMAKE_TOOLCHAIN_FILE}}")
+    set(CMAKE_TOOLCHAIN_FILE "${CMAKE_TOOLCHAIN_FILE}")
 endif()
 
 include("${CMAKE_CURRENT_LIST_DIR}/opentrack-policy.cmake" NO_POLICY_SCOPE)
@@ -104,6 +104,10 @@ if(CMAKE_PROJECT_NAME STREQUAL "OpenCV")
     set(BUILD_PERF_TESTS    OFF)
     set(BUILD_opencv_apps   OFF)
     set(BUILD_opencv_gapi   OFF)
+endif()
+
+if(CMAKE_PROJECT_NAME STREQUAL "TestOscpack")
+    add_compile_definitions(OSC_HOST_LITTLE_ENDIAN)
 endif()
 
 set(opentrack-simd "SSE2")
